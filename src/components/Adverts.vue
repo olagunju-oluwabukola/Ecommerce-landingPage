@@ -1,7 +1,7 @@
 <template>
     <div class="md:flex justify-center items-center gap-6 bg-gray-200  p-6">
       
-      <div class="bg-gray-900 text-white rounded-lg shadow-lg p-6 w-80 md:w-1/2 h-96 ">
+      <div class="bg-gray-900 text-white rounded-lg shadow-lg p-6 md:w-1/2 ">
         <h2 class="text-lg md:text-4xl font-bold mb-4">{{ currentProduct.name }}</h2>
         <h3 class="text-gray-400 mb-4 text-sm md:text-2xl">{{ currentProduct.category }}</h3>
         <p class="text-sm md:text-3xl mb-6">{{ currentProduct.description }}</p>

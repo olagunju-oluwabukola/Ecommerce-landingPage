@@ -3,12 +3,11 @@
     <div>
       <h2 class="text-2xl font-semibold p-2">New Product Collection</h2>
       
-      <!-- Carousel Component -->
       <carousel-comp/>
   
-      <!-- Additional content for New Product category -->
+      
       <div class="mt-8">
-        <p class="text-lg text-gray-700">
+        <p class="text-sm md:text-lg text-gray-700 text-wrap ml-3">
           Discover the latest arrivals in our New Product collection. Featuring the newest trends and designs.
         </p>
       </div>
@@ -24,7 +23,5 @@ import CarouselComp from './CarouselComp.vue';
   };
   </script>
   
-  <style scoped>
-  /* Add any specific styles for NewProduct.vue here */
-  </style>
+
   
