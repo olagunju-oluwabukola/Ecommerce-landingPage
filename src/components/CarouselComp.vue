@@ -1,14 +1,14 @@
 <template>
   <div class="container mx-auto py-6">
- 
+    <!-- Carousel Wrapper -->
     <div class="relative w-full overflow-hidden">
-  
+      <!-- Carousel Items -->
       <div
         ref="carousel"
         class="flex transition-transform duration-700 ease-in-out"
         :style="{ transform: `translateX(-${currentSlide * 100 / slidesPerView}%)` }"
       >
-        
+        <!-- Individual Slide -->
         <div
           v-for="(item, index) in items"
           :key="index"
@@ -22,7 +22,19 @@
         </div>
       </div>
 
-    
+     Navigation Buttons
+       <button
+        class="absolute left-0 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white rounded-full"
+        @click="prevSlide"
+      >
+        Prev
+      </button>
+      <button
+        class="absolute right-0 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white rounded-full"
+        @click="nextSlide"
+      >
+        Next
+      </button>
     </div>
   </div>
 </template>
@@ -42,7 +54,7 @@ export default {
   data() {
     return {
       currentSlide: 0,
-      slidesPerView: 4, 
+      slidesPerView: 4,
       items: [
         { name: "Retro sneakers", price: "NGN 3000", src: img1},
         { name: "Retro sneakers", price: "NGN 3000", src: img2},
