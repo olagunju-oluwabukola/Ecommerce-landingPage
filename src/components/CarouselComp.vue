@@ -1,124 +1,106 @@
 <template>
-  <div class="container mx-auto py-6">
-    <div class="relative w-full overflow-hidden">
+  <div class="max-w-7xl mx-auto py-12">
+    <!-- Product Carousel -->
+    <div class="relative overflow-hidden">
       <div
         ref="carousel"
-        class="flex transition-transform duration-700 ease-in-out"
-        :style="{ transform: `translateX(-${currentSlide * 100 / slidesPerView}%)` }"
+        class="flex transition-transform duration-500"
+        :style="{ transform: `translateX(-${currentSlide * (100 / visibleItems)}%)` }"
       >
         <div
-          v-for="(item, index) in items"
+          v-for="(product, index) in products"
           :key="index"
-          class="flex-shrink-0 w-full"
-          :class="itemClass"
+          class="w-[calc(100%/4)] flex-shrink-0 bg-white  rounded-lg p-4 text-center"
         >
-          <div class="p-4 text-center">
-            <img :src="item.src" alt="Product Image" class="w-48 h-48 mx-auto" />
-            <p class="mt-2">{{ item.name }}</p>
-            <p class="mt-1 font-semibold">{{ item.price }}</p>
-          </div>
+          <img
+            :src="product.image"
+            :alt="product.name"
+            class="h-32 w-full object-contain mb-4"
+          />
+          <h3 class="text-sm text-gray-500">{{ product.name }}</h3>
+          <p class="text-lg font-semibold">{{ product.price }}</p>
         </div>
       </div>
-
-      <!-- Navigation buttons -->
-      <button
-        class="absolute left-0 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white rounded-full"
-        @click="prevSlide"
-      >
-        Prev
-      </button>
-      <button
-        class="absolute right-0 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white rounded-full"
-        @click="nextSlide"
-      >
-        Next
-      </button>
     </div>
   </div>
 </template>
 
 <script>
-import img1 from '/images/img1.png';
-import img2 from '/images/img2.png';
-import img3 from '/images/img3.png';
-import img4 from '/images/img4.png';
-import img5 from '/images/img5.png';
-import img6 from '/images/img6.png';
-import img7 from '/images/img7.png';
-import img8 from '/images/img8.png';
-import img9 from '/images/img9.png';
+import img1 from '/images/img1.png'
+import img2 from '/images/img2.png'
+import img3 from '/images/img3.png'
+import img4 from '/images/img4.png'
+import img5 from '/images/img5.png'
+import img6 from '/images/img6.png'
+import img7 from '/images/img7.png'
+import img8 from '/images/img8.png'
+import img9 from '/images/img9.png'
+
 
 export default {
   data() {
     return {
-      currentSlide: 0,
-      slidesPerView: 1, // Default to 1 slide per view on small screens
-      items: [
-        { name: "Retro sneakers", price: "NGN 3000", src: img1 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img2 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img3 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img4 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img5 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img6 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img7 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img8 },
-        { name: "Retro sneakers", price: "NGN 3000", src: img9 },
+      products: [
+        { name: "Retro sneakers", price: "NGN 3000", image: img1 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img2 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img3 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img4 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img5 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img6 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img7 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img8 },
+        { name: "Retro sneakers", price: "NGN 3000", image: img9 },
       ],
-      interval: null,
+      currentSlide: 0,
+      visibleItems: 4,
+      autoSlideInterval: null,
     };
   },
-  computed: {
-    itemClass() {
-      if (this.slidesPerView === 1) {
-        return "sm:w-full";
-      } else if (this.slidesPerView === 2) {
-        return "sm:w-1/2";
-      } else {
-        return "sm:w-1/4";
-      }
-    },
-  },
   mounted() {
-    this.updateSlidesPerView();
-    window.addEventListener("resize", this.updateSlidesPerView);
     this.startAutoSlide();
-  },
-  methods: {
-    updateSlidesPerView() {
-      if (window.innerWidth < 640) {
-        this.slidesPerView = 1;
-      } else if (window.innerWidth < 1024) {
-        this.slidesPerView = 2;
-      } else {
-        this.slidesPerView = 4;
-      }
-    },
-    startAutoSlide() {
-      this.interval = setInterval(() => {
-        this.nextSlide();
-      }, 3000);
-    },
-    stopAutoSlide() {
-      clearInterval(this.interval);
-    },
-    nextSlide() {
-      const maxSlides = this.items.length - this.slidesPerView;
-      this.currentSlide = (this.currentSlide + 1) % (maxSlides + 1);
-    },
-    prevSlide() {
-      const maxSlides = this.items.length - this.slidesPerView;
-      this.currentSlide = (this.currentSlide - 1 + maxSlides + 1) % (maxSlides + 1);
-    },
+    this.checkScreenSize();
+    window.addEventListener("resize", this.checkScreenSize);
   },
   beforeDestroy() {
+    window.removeEventListener("resize", this.checkScreenSize);
     this.stopAutoSlide();
-    window.removeEventListener("resize", this.updateSlidesPerView);
+  },
+  methods: {
+    startAutoSlide() {
+      this.autoSlideInterval = setInterval(() => {
+        this.scrollRight();
+      }, 3000); // Change every 3 seconds
+    },
+    stopAutoSlide() {
+      clearInterval(this.autoSlideInterval);
+    },
+    scrollLeft() {
+      if (this.currentSlide > 0) {
+        this.currentSlide--;
+      }
+    },
+    scrollRight() {
+      if (this.currentSlide < this.products.length - this.visibleItems) {
+        this.currentSlide++;
+      } else {
+        this.currentSlide = 0;
+      }
+    },
+    checkScreenSize() {
+      if (window.innerWidth < 768) {
+        this.visibleItems = 2;
+      } else if (window.innerWidth < 1024) {
+        this.visibleItems = 2;
+      } else if (window.innerWidth < 1280) {
+        this.visibleItems = 3;
+      } else {
+        this.visibleItems = 4;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-.carousel-slide {
-  min-width: 100%;
-}
+/* Add custom styles if needed */
 </style>
