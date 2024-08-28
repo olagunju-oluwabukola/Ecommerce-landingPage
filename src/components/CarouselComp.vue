@@ -88,7 +88,7 @@ export default {
     },
     checkScreenSize() {
       if (window.innerWidth < 768) {
-        this.visibleItems = 2;
+        this.visibleItems = 1;
       } else if (window.innerWidth < 1024) {
         this.visibleItems = 2;
       } else if (window.innerWidth < 1280) {
