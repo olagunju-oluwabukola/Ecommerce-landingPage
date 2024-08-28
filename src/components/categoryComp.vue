@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-7xl mx-auto py-12">
       
-      <div class=" grid place-items-center md:flex justify-center space-x-8 border-b border-gray-200 pb-4">
+      <div class="  md:flex justify-center space-x-8 border-b border-gray-200 pb-4">
         <button 
           v-for="(category, index) in categories" 
           :key="index" 
@@ -18,22 +18,7 @@
         <component :is="currentComponent" />
         
 
-        <!-- <button 
-          @click="scrollLeft" 
-          class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md focus:outline-none"
-        >
-          <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button 
-          @click="scrollRight" 
-          class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md focus:outline-none"
-        >
-          <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button> -->
+      
       </div>
     </div>
   </template>
